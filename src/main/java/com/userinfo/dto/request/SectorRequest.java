@@ -6,8 +6,6 @@ import lombok.Data;
 
 @Data
 public class SectorRequest {
-    @NotEmpty(message = "Sector id cannot be empty")
-    @NotNull(message = "Sector id cannot be null")
     private Long id;
     @NotNull(message = "Sector name cannot be null")
     @NotEmpty(message = "Sector name cannot be empty")
