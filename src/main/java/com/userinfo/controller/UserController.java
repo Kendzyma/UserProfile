@@ -10,11 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/user")
 public class UserController {
     private final UserService userService;
+
 
     @PostMapping
     public ResponseEntity<ApiResponse<User>> create(@Valid @RequestBody UserRequest userRequest) {
@@ -29,5 +32,9 @@ public class UserController {
     @PutMapping("{userId}")
     public ResponseEntity<ApiResponse<User>> update(@PathVariable Long userId, @Valid @RequestBody UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.update(userId, userRequest));
+    }
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<User>>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 }
