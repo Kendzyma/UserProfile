@@ -3,6 +3,7 @@ com/userinfo/repository/UserRepository.class
 com/userinfo/model/BaseEntity.class
 com/userinfo/service/impl/SectorServiceImpl.class
 com/userinfo/exception/CustomBadRequestException.class
+com/userinfo/config/CorsConfig.class
 com/userinfo/controller/UserController.class
 com/userinfo/service/SectorService.class
 com/userinfo/UserInformationApplication.class

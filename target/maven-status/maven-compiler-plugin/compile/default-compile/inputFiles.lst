@@ -14,6 +14,7 @@
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/service/impl/UserServiceImpl.java
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/exception/CustomBadRequestException.java
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/model/Sector.java
+/Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/config/CorsConfig.java
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/dto/response/ApiResponse.java
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/model/BaseEntity.java
 /Users/macbook/Desktop/projects/UserProfile/src/main/java/com/userinfo/UserInformationApplication.java
