@@ -106,7 +106,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       run: |
         DOCKER_IMAGE="${{ steps.tag.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.CI_VERSION }}"
-    name: Deploy Cloud Run
+      name: Deploy Cloud Run
         gcloud run deploy "${SERVICE_NAME}" --quiet \
           --image "${DOCKER_IMAGE}" --project "${GCLOUD_PROJECT_ID}" \
           --add-cloudsql-instances "${DB_INSTANCE}" \
@@ -137,7 +137,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       run: |
         DOCKER_IMAGE="${{ steps.tag.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.CI_VERSION }}"
-    name: Deploy Cloud Run
+      name: Deploy Cloud Run
         gcloud run deploy "${SERVICE_NAME}" --quiet \
           --image "${DOCKER_IMAGE}" --project "${GCLOUD_PROJECT_ID}" \
           --add-cloudsql-instances "${DB_INSTANCE}" \
