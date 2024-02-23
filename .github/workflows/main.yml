@@ -35,7 +35,7 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
-          workload_identity_provider: 'projects/44284727423/locatis/global/workloadIdentityPools/github-identity-pool-gc-dev/providers/github-provider'
+          workload_identity_provider: 'projects/44284727423/locations/global/workloadIdentityPools/github-identity-pool-gc-dev/providers/github-provider'
           service_account: 'github-actions@gitcharger-dev.iam.gserviceaccount.com'
       - name: Setup Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v1.1.1
@@ -85,6 +85,7 @@ jobs:
           docker push "${{ steps.tag.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.CI_VERSION }}"
 
   dev-deploy:
+#    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
     environment:
       name: dev
     needs: dev-build
@@ -97,13 +98,13 @@ jobs:
       POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      DB_INSTANCE: ${{ secrets.DB_INSTANCE }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
-        if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
       - name: Deploy Cloud-dev Run
         run: |
-          DOCKER_IMAGE="${{ needs.dev-build.outputs.IMAGE_NAME }}:${{ needs.dev-build.outputs.CI_VERSION }}"
+          DOCKER_IMAGE="${{ steps.tag.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.CI_VERSION }}"
           gcloud run deploy "${SERVICE_NAME}" --quiet \
             --image "${DOCKER_IMAGE}" --project "${GCLOUD_PROJECT_ID}" \
             --add-cloudsql-instances "${DB_INSTANCE}" \
@@ -116,6 +117,7 @@ jobs:
             '.[] | select(.metadata.name == "${SERVICE_NAME}") | .status.address.url'
 
   prod-deploy:
+    if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
     environment:
       name: prod
     needs: dev-deploy
@@ -128,10 +130,10 @@ jobs:
       POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      DB_INSTANCE: ${{ secrets.DB_INSTANCE }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
-        if: github.event.pull_request.merged == true || github.ref == 'refs/heads/main'
       - name: Deploy Cloud-prod Run
         run: |
           DOCKER_IMAGE="${{ needs.dev-build.outputs.IMAGE_NAME }}:${{ needs.dev-build.outputs.CI_VERSION }}"
