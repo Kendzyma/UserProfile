@@ -2,8 +2,10 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  dev-action:
+  dev-deploy:
     runs-on: ubuntu-latest
+    environment:
+        name: dev
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -16,9 +18,11 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-  prod-action:
-    needs: dev-action
+  prod-deploy:
+    needs: dev-deploy
     runs-on: ubuntu-latest
+    environment:
+      name: prod
     steps:
       - name: Issues - Manual Workflow Approval
         uses: macnev2013/manual-approval@v1.0.18
