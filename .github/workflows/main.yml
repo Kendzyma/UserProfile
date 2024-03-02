@@ -1,11 +1,6 @@
 name: GitHub Actions Demo
-on:
-  push:
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
