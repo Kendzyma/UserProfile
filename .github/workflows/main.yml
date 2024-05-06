@@ -23,7 +23,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   dev-deploy:
-    if: github.ref == 'refs/heads/main/tags'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/main/tags'
     runs-on: ubuntu-latest
     needs:
       - Explore-GitHub-Actions
