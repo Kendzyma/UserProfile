@@ -23,7 +23,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   dev-deploy:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/main/tags'
+    if: github.ref == 'refs/heads/main' || startsWith(github.event.tag.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     needs:
       - Explore-GitHub-Actions
@@ -43,7 +43,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   prod-deploy:
-    if: github.event.tag.ref == 'refs/tags/main'
+    if: startsWith(github.event.tag.ref, 'refs/tags/')
     runs-on: Explore-GitHub-Actions
     needs:
       - dev-deploy
