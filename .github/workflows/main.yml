@@ -6,6 +6,8 @@ jobs:
 #    if: github.event.ref_type != 'tag'
     runs-on: ubuntu-latest
     steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event.tag.ref }} event."
       - run: echo "The reference type of the action is ${{ github.event.ref_type }}"
       - run: echo "The event running in this workflow is ${{ github.event_name }}"
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
